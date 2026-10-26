@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SASUKEY • GTA 5M ROLEPLAY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #100817; color: #ffffff; }
+        .glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); }
+        .glow-green { box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); }
+        .glass-card { background: rgba(30, 16, 42, 0.78); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        /* Minimal music control: one button only, no player panel. */
+        #music-toggle {
+            position: fixed; right: 16px; bottom: 16px; z-index: 9999;
+            width: 52px; height: 52px; border-radius: 999px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; background: linear-gradient(135deg, #9333ea, #6b21a8);
+            border: 1px solid rgba(216,180,254,.65);
+            box-shadow: 0 6px 24px rgba(147,51,234,.45);
+            font-size: 20px; cursor: pointer;
+        }
+        #music-toggle:active { transform: scale(.96); }
+        #music-toggle.playing { animation: musicPulse 1.8s ease-in-out infinite; }
+        @keyframes musicPulse { 0%,100% { box-shadow: 0 6px 24px rgba(147,51,234,.4); } 50% { box-shadow: 0 6px 28px rgba(168,85,247,.8); } }
+        #music-icon { display: inline-block; }
+        #music-wave { display: none; align-items: center; justify-content: center; gap: 3px; height: 24px; }
+        #music-wave span { display: block; width: 3px; height: 6px; border-radius: 4px; background: #fff; transform-origin: center; }
+        #music-toggle.playing #music-icon { display: none; }
+        #music-toggle.playing #music-wave { display: flex; }
+        #music-toggle.playing #music-wave span { animation: soundWave .7s ease-in-out infinite alternate; }
+        #music-wave span:nth-child(2) { animation-delay: -.45s; }
+        #music-wave span:nth-child(3) { animation-delay: -.2s; }
+        #music-wave span:nth-child(4) { animation-delay: -.55s; }
+        #music-wave span:nth-child(5) { animation-delay: -.32s; }
+        @keyframes soundWave { from { height: 5px; opacity: .7; } to { height: 22px; opacity: 1; } }
+        #site-audio { display: none; }
+    </style>
+</head>
+<body class="min-h-screen pb-12 overflow-x-hidden selection:bg-purple-500 selection:text-white">
+    <header class="relative pt-12 pb-8 px-4 text-center overflow-hidden">
+        <div class="absolute inset-0 -z-10 flex items-center justify-center">
+            <div class="w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
+            <div class="w-80 h-80 bg-purple-500/10 rounded-full blur-3xl -ml-20"></div>
+        </div>
+        <span class="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 font-bold text-sm mb-4">GTA 5M • ROLEPLAY</span>
+        <h1 class="text-5xl md:text-7xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-400 to-purple-600 mb-3">SASUKEY</h1>
+        <p class="text-gray-400 text-lg md:text-xl font-medium max-w-lg mx-auto">Welcome to my world — تابع البث والمحتوى من مكان واحد</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 space-y-8">
+        <section class="glass-card rounded-3xl p-6 md:p-8 glow-purple relative overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <span class="relative flex h-3.5 w-3.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-purple-500"></span></span>
+                    <h2 class="text-2xl font-black text-white flex items-center gap-2">🟣 البث المباشر على Kick</h2>
+                </div>
+                <a href="https://kick.com/sasukey19" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-xl transition text-sm flex items-center gap-2">افتح قناة Kick <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
+            </div>
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/60 border border-purple-500/30 mb-2">
+                <iframe src="https://player.kick.com/sasukey19" title="Kick live stream SASUKEY" class="absolute inset-0 w-full h-full border-0" allowfullscreen="true" allow="autoplay; fullscreen"></iframe>
+                <!-- Cover the small white star/plus and replace it with a tiny KICK label. -->
+                <span aria-hidden="true" class="absolute bottom-0 right-0 z-20 pointer-events-none flex items-center justify-center font-black tracking-wide" style="width:38px;height:30px;background:#100817;border-top-left-radius:8px;color:#34d399;font-size:9px;">KICK</span>
+            </div>
+            <div class="flex justify-center mb-3">
+                <span id="kick-offline-badge" class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-green-500/10 border border-green-400/30 text-green-400 text-sm font-black tracking-widest shadow-lg pointer-events-none"><span class="inline-block w-2 h-2 rounded-full bg-green-400"></span>KICK</span>
+            </div>
+            <p class="text-xs text-gray-400 text-center">GTA 5M Roleplay • القناة الرسمية sasukey19</p>
+        </section>
+
+        <section class="glass-card rounded-3xl p-6 text-center border border-purple-500/20">
+            <h3 class="text-purple-400 font-bold text-sm mb-1 uppercase tracking-wider">📅 موعد البث اليومي</h3>
+            <p class="text-xl md:text-2xl font-black text-white mb-4">ستريم كل يوم الساعة 8:00 مساءً على Kick</p>
+            <div dir="ltr" class="grid grid-cols-3 gap-3 max-w-sm mx-auto">
+                <div class="bg-white/5 rounded-2xl p-3 border border-white/5"><span id="hours" class="block text-3xl font-black text-purple-400">00</span><span class="text-xs text-gray-400">ساعة</span></div>
+                <div class="bg-white/5 rounded-2xl p-3 border border-white/5"><span id="minutes" class="block text-3xl font-black text-purple-400">00</span><span class="text-xs text-gray-400">دقيقة</span></div>
+                <div class="bg-white/5 rounded-2xl p-3 border border-white/5"><span id="seconds" class="block text-3xl font-black text-purple-400">00</span><span class="text-xs text-gray-400">ثانية</span></div>
+            </div>
+        </section>
+
+        <section class="space-y-4">
+            <h3 class="text-xl font-bold text-white px-2 flex items-center gap-2"><i class="fa-solid fa-link text-purple-400"></i> لينكات التواصل الاجتماعي</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="https://www.tiktok.com/@sasukey_19" target="_blank" rel="noopener noreferrer" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-white font-bold text-xl"><i class="fa-brands fa-tiktok"></i></div><div><div class="font-bold text-white">TikTok</div><div class="text-xs text-gray-400">@sasukey_19</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+                <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-discord"></i></div><div><div class="font-bold text-white">Discord</div><div class="text-xs text-gray-400">انضم لسيرفر الديسكورد</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+                <a href="https://www.youtube.com/@suskeyegy" target="_blank" rel="noopener noreferrer" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-youtube"></i></div><div><div class="font-bold text-white">YouTube</div><div class="text-xs text-gray-400">@suskeyegy</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+                <a href="https://www.instagram.com/suskeyegy" target="_blank" rel="noopener noreferrer" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-instagram"></i></div><div><div class="font-bold text-white">Instagram</div><div class="text-xs text-gray-400">@suskeyegy</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+                <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center text-white text-xl"><i class="fa-brands fa-whatsapp"></i></div><div><div class="font-bold text-white">WhatsApp</div><div class="text-xs text-gray-400">قناة الواتساب الرسمية</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+                <a href="#" class="glass-card p-4 rounded-2xl flex items-center justify-between hover:bg-white/10 transition group"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center text-white text-xl"><i class="fa-solid fa-heart"></i></div><div><div class="font-bold text-white">أخواتي الداعمين</div><div class="text-xs text-gray-400">ادعم SASUKEY</div></div></div><i class="fa-solid fa-chevron-left text-gray-500 group-hover:text-white transition"></i></a>
+            </div>
+        </section>
+
+        <section class="glass-card rounded-3xl p-6 border border-purple-500/20">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-gem text-pink-400"></i> باقات الدعم (InstaPay)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center"><span class="px-3 py-1 bg-purple-500/20 text-purple-300 font-bold rounded-full text-xs">رتبة مميزة</span><h4 class="text-2xl font-black text-white mt-2">OG</h4><p class="text-2xl font-bold text-purple-400 my-2">5$</p><p class="text-xs text-gray-400">احصل على مميزات حصرية داخل السيرفر والبث</p></div>
+                <div class="p-5 rounded-2xl bg-white/5 border border-white/10 text-center"><span class="px-3 py-1 bg-amber-500/20 text-amber-300 font-bold rounded-full text-xs">VIP</span><h4 class="text-2xl font-black text-white mt-2">VIP</h4><p class="text-2xl font-bold text-amber-400 my-2">5$</p><p class="text-xs text-gray-400">دعم ممتاز بخصائص وكلام مميز في الشات</p></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-12 text-center text-gray-500 text-sm"><p>© SASUKEY • GTA 5M ROLEPLAY</p></footer>
+
+    <!-- One simple button: tap it to start/pause the background song. -->
+    <button id="music-toggle" type="button" aria-label="تشغيل الأغنية" title="تشغيل الأغنية">
+        <i id="music-icon" class="fa-solid fa-music" aria-hidden="true"></i>
+        <span id="music-wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+    </button>
+    <audio id="site-audio" preload="auto" playsinline></audio>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(20, 0, 0, 0);
+            if (now >= target) target.setDate(target.getDate() + 1);
+            const diff = target - now;
+            document.getElementById('hours').innerText = String(Math.floor(diff / 3600000)).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Show the KICK badge when the channel is offline. If Kick blocks browser
+        // requests, keep the badge visible as a safe fallback.
+        async function updateKickStatus() {
+            const badge = document.getElementById('kick-offline-badge');
+            try {
+                const response = await fetch('https://kick.com/api/v2/channels/sasukey19', {
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+                if (!response.ok) throw new Error('Kick status unavailable');
+                const channel = await response.json();
+                const isLive = Boolean(channel.livestream || channel.is_live);
+                badge.hidden = isLive;
+            } catch (error) {
+                badge.hidden = false;
+            }
+        }
+        updateKickStatus();
+        setInterval(updateKickStatus, 60000);
+
+        const siteAudio = document.getElementById('site-audio');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        const AUDIO_FILE_URL = 'song.mp3';
+        siteAudio.src = AUDIO_FILE_URL;
+        siteAudio.preload = 'auto';
+        siteAudio.volume = 0.8;
+
+        function updateMusicButton(isPlaying) {
+            musicToggle.classList.toggle('playing', isPlaying);
+            musicIcon.className = isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-music';
+            musicToggle.setAttribute('aria-label', isPlaying ? 'إيقاف الأغنية مؤقتًا' : 'تشغيل الأغنية');
+            musicToggle.title = isPlaying ? 'إيقاف الأغنية مؤقتًا' : 'تشغيل الأغنية';
+        }
+
+        musicToggle.addEventListener('click', async () => {
+            if (siteAudio.paused) {
+                try {
+                    await siteAudio.play();
+                    updateMusicButton(true);
+                } catch (error) {
+                    updateMusicButton(false);
+                    musicToggle.title = 'تعذر التشغيل. تأكد من رفع song.mp3 بجانب index.html';
+                }
+            } else {
+                siteAudio.pause();
+                updateMusicButton(false);
+            }
+        });
+        siteAudio.addEventListener('play', () => updateMusicButton(true));
+        siteAudio.addEventListener('pause', () => updateMusicButton(false));
+        siteAudio.addEventListener('ended', () => updateMusicButton(false));
+        siteAudio.addEventListener('error', () => {
+            updateMusicButton(false);
+            musicToggle.title = 'تعذر تحميل الأغنية: تأكد من وجود song.mp3 بجانب index.html';
+        });
+
+    </script>
+</body>
+</html>
